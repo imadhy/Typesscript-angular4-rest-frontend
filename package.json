@@ -21,8 +21,16 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "@types/underscore": "^1.8.0",
+    "angular2-notifications": "^0.7.3",
+    "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "ng-sidebar": "^6.0.4",
+    "ngx-bootstrap": "^1.9.3",
+    "ngx-modal": "0.0.29",
+    "ngx-mydatepicker": "^2.1.5",
     "rxjs": "^5.4.2",
+    "underscore": "^1.8.3",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

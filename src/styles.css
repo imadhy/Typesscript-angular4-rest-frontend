@@ -1,1 +1,136 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #EEEEEE;
+  min-height: 100vh;
+}
+
+.app-header {
+  align-items: center;
+  background: #0273d4;
+  box-shadow: 0 0.1em 1.5em rgba(#545555, 0.5);
+  color: #fff;
+  display: flex;
+  padding: 1em;
+}
+
+.app-header__toggle {
+  background: transparent;
+  border: 0.15rem solid #fff;
+  border-left: 0;
+  border-right: 0;
+  cursor: pointer;
+  font-size: 0;
+  height: 1.5rem;
+  margin-right: 1rem;
+  position: relative;
+  width: 2rem;
+}
+
+.app-header__toggle::after {
+  background: #fff;
+  content: '';
+  height: 0.15rem;
+  left: 0;
+  margin-top: -0.075rem;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+.app-sidebar {
+  background-color: #fff;
+  padding: 2em 1em;
+}
+
+.app-sidebar ng-sidebar--opened.ng-sidebar--over {
+  box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
+}
+
+.app-contents {
+  padding: 0 2em;
+}
+
+.navbar-titles-menu {
+  font-size: 18px;
+  padding-left: 5px;
+}
+
+.navbar-titles-menu a {
+  color: #fff;
+  text-decoration:  none;
+}
+
+.sidebar-list {
+  width: 200px;
+  list-style: none;
+}
+
+.sidebar-list li {
+  text-indent: 20px;
+  line-height: 50px;
+}
+.sidebar-list li a {
+  color: #000;
+  display: block;
+  text-decoration: none;
+}
+.sidebar-list li a:hover {
+  background: #bfbfbf;
+  color: #fff;
+  text-decoration: none;
+}
+
+.data-list tr.row-name {
+  font-size: 14px;
+  color:#448aff;
+}
+
+.data-list tr th {
+  text-align: center;
+}
+
+.data-list tr td {
+  text-align: center;
+}
+
+tr.row-content {
+    color:#6c7173;
+}
+
+.data-list {
+  border-bottom: 4px solid #448aff;
+  width: 90%;
+  margin: 0px auto;
+}
+
+.data-list a.delete-button {
+  color:#d9534f;
+  cursor: pointer;
+}
+
+.data-list a.delete-button:hover {
+  color:#de6c69;
+}
+
+.panel-position {
+  margin: 15px auto;
+  width: 85%;
+}
+
+.planel-plus-style {
+  border-color: rgb(216, 216, 216);
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.planel-plus-style .panel-heading {
+  background: #4884f3;
+  color : #fff;
+}
+
+.panel-heading button.add-button:hover {
+  background-color: #6ec96e;
+  border-color: #5cb85c
+}
+
+.panel-heading a.link-back-list {
+  margin-right: 7px;
+}
