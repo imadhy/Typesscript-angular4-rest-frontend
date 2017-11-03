@@ -7,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeListComponent implements OnInit {
 
+
+
+  public navigation = [
+    { title: 'Car', routerLink: 'car-list' },
+    { title: 'Driver', routerLink: 'driver-list' }
+  ];
+
   constructor() { }
 
   ngOnInit() {

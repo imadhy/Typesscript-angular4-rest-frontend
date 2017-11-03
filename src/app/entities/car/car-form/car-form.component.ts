@@ -2,12 +2,15 @@
 import { NotificationService } from './../../../services/notification.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { INgxMyDpOptions } from 'ngx-mydatepicker';
 
 // Models and services imports
 import { Car } from './../Car.model';
+import { Driver } from '../../driver/driver.model';
 import { CarService } from './../services/car.service';
+import { DriverService } from '../../driver/services/driver.service';
+
 import * as _ from 'underscore';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
@@ -23,11 +26,15 @@ export class CarFormComponent implements OnInit {
   readonly CONFLICT_ERROR = 409;
   readonly INTERNAL_SERVER_ERROR = 500;
 
+  @ViewChild('deleteModal') deleteModal;
+
   private title = 'Car Form';
   private car: Car;
   private form: FormGroup;
   private ids;
   private bsConfig: Partial<BsDatepickerConfig>;
+
+  private driverData: Driver[];
 
   dateOptions: INgxMyDpOptions = {
     dateFormat: 'dd/mm/yyyy',
@@ -36,6 +43,7 @@ export class CarFormComponent implements OnInit {
 
   constructor(
     private _carService: CarService,
+    private _driverService: DriverService,
     private _route: ActivatedRoute,
     private _router: Router,
     private _formBuilder: FormBuilder,
@@ -45,6 +53,7 @@ export class CarFormComponent implements OnInit {
 
   ngOnInit() {
     this.getIdFromRouteParams();
+    this.fetchDrivers();
     this.initForm();
   }
 
@@ -52,6 +61,12 @@ export class CarFormComponent implements OnInit {
     this._route.params.subscribe(p => {
       this.ids = _.values(p);
     });
+  }
+
+  fetchDrivers = () => {
+    this._driverService.getAll().subscribe(
+      (data: Driver[]) => this.driverData = data,
+      error => console.error(error));
   }
 
   initForm = () => {
@@ -93,6 +108,7 @@ export class CarFormComponent implements OnInit {
   load = () => {
     this._carService.getSingle(this.ids).subscribe(
       (car: Car) => {
+        this.car = car;
         this.form.setValue({
           id: car.id,
           name: car.name,
@@ -115,7 +131,7 @@ export class CarFormComponent implements OnInit {
 
   save = () => {
     // If we didn't get a author, we are adding a author
-    if (!this.car) {
+    if (_.isEmpty(this.ids)) {
       this.add();
     } else { // If we didn't get a author, we are adding a author
       this.update();
@@ -151,5 +167,31 @@ export class CarFormComponent implements OnInit {
           this._notificationService.error('Error', 'An error occured when trying to reach the server');
         }
       });
+  }
+
+  openDeleteModal() {
+    this.deleteModal.open();
+  }
+
+  confirmDelete() {
+    this._carService.delete(this.car.id).subscribe(
+      result => {
+        this._router.navigate(['./car-list']);
+
+        this._notificationService.success(
+          'Deleted',
+          `The car entry with the id(s)='${this.car.id}' was deleted successfuly`);
+      },
+      error => {
+        if (error.status === this.NOT_FOUND_ERROR) {
+          this._notificationService.error(error.statusText, 'Entity not found in database');
+        } else if (error.status === this.INTERNAL_SERVER_ERROR) {
+          this._notificationService.error(error.statusText, error.json());
+        } else {
+          this._notificationService.error('Error', 'An error occured when trying to reach the server');
+        }
+      });
+
+    this.deleteModal.close();
   }
 }

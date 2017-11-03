@@ -25,6 +25,7 @@
     "angular2-notifications": "^0.7.3",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "ng-bootstrap-form-validation": "^1.0.10",
     "ng-sidebar": "^6.0.4",
     "ngx-bootstrap": "^1.9.3",
     "ngx-modal": "0.0.29",

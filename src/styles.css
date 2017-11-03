@@ -79,6 +79,10 @@ body {
   text-decoration: none;
 }
 
+.data-list tr {
+  cursor: pointer;
+}
+
 .data-list tr.row-name {
   font-size: 14px;
   color:#448aff;
@@ -111,9 +115,17 @@ tr.row-content {
   color:#de6c69;
 }
 
+.pagination-nav {
+  text-align: center;
+}
+
 .panel-position {
   margin: 15px auto;
   width: 85%;
+}
+
+.panel-position a {
+  cursor: pointer;
 }
 
 .planel-plus-style {

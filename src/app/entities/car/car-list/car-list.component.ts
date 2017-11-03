@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Services imports
@@ -52,13 +52,18 @@ export class CarListComponent implements OnInit {
     this._carService.getAll().subscribe(
       (data: Car[]) => {
         this.listOfCars = data;
-        // this.setPage(1);
+        this.setPage(1);
       },
       error => {
         this._notificationService.error(
           'Error',
           'An error occured when trying to reach the server');
       });
+  }
+
+  editCar = (carID): void => {
+    // Navigate to car form component
+    this._router.navigate(['./car-form', carID]);
   }
 
   confirmDelete() {
@@ -83,5 +88,17 @@ export class CarListComponent implements OnInit {
   openDeleteModal(carID) {
     this.carIdToDelete = carID;
     this.deleteModal.open();
+  }
+
+  setPage(page: number) {
+    if (page < 1 || page > this.pager.totalPages) {
+      return;
+    }
+
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.listOfCars.length, page);
+
+    // get current page of items
+    this.pagedItems = this.listOfCars.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 }

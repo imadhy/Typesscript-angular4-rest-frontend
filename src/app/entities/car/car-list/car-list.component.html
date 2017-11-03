@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="row-content" *ngFor="let car of listOfCars">
+                        <tr class="row-content" *ngFor="let car of pagedItems" (click)="editCar(car.id)">
                             <td>{{ car.id }}</td>
                             <td>{{ car.name }}</td>
                             <td>{{ car.year }}</td>
@@ -31,7 +31,7 @@
                             <td>{{ car.brand }}</td>
                             <td>{{ car.driver }}</td>
                             <td class="center">
-                                <a class="delete-button" (click)="openDeleteModal(car.id)">
+                                <a class="delete-button" (click)="openDeleteModal(car.id); $event.stopPropagation();">
                                     <span class="glyphicon glyphicon-trash " aria-hidden="true "></span>
                                 </a>
                             </td>
@@ -39,6 +39,24 @@
                     </tbody>
                 </table>
             </div>
+
+            <nav class="pagination-nav" aria-label="Page navigation" *ngIf="pager.pages && pager.pages.length">
+                <ul class="pagination">
+                    <li [ngClass]="{'disabled': pager.currentPage === 1}">
+                        <a aria-label="Previous" (click)="setPage(pager.currentPage - 1)">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{'active': pager.currentPage === page}">
+                        <a (click)="setPage(page)">{{ page }}</a>
+                    </li>
+                    <li [ngClass]="{'disabled': pager.currentPage === pager.totalPages}">
+                        <a aria-label="Next" (click)="setPage(pager.currentPage + 1)">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

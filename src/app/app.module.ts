@@ -21,13 +21,13 @@ import { PagerService } from './services/pager.service';
 
 // Entities Services
 import { CarService } from './entities/car/services/car.service';
+import { DriverService } from './entities/driver/services/driver.service';
 import { NotificationService } from './services/notification.service';
 
 // Node Modules
 import { ModalModule } from 'ngx-modal';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
@@ -47,7 +47,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     BrowserAnimationsModule,
     SimpleNotificationsModule,
     BsDatepickerModule.forRoot(),
-    NgxMyDatePickerModule.forRoot(),
     SidebarModule.forRoot()
   ],
   providers: [
@@ -55,6 +54,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     EmitterService,
     PagerService,
     CarService,
+    DriverService,
     NotificationService
   ],
   bootstrap: [AppComponent]
